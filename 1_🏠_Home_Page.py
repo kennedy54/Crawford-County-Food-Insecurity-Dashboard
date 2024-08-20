@@ -40,6 +40,6 @@ sitemap_content = '''<?xml version="1.0" encoding="UTF-8"?>
 if st.query_params.get("sitemap"):
     st.write(sitemap_content)
 
-#Adding button to sidebar to download the sitemap of the dashboard
-if st.sidebar.button('Download Sitemap'):
-    st.download_button(label="Download sitemap.xml", data=sitemap_content, file_name="sitemap.xml", mime='text/xml')
+#Adding option to download the sitemap of the dashboard
+st.markdown("## Download Sitemap")
+st.download_button(label="Download sitemap.xml", data=sitemap_content, file_name="sitemap.xml", mime='text/xml')
