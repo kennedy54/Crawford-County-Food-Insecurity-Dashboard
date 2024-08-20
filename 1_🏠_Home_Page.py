@@ -37,7 +37,7 @@ sitemap_content = '''<?xml version="1.0" encoding="UTF-8"?>
 '''
 
 #if statement that serves the sitemap when the "sitemap" query parameter is present
-if st.experimental_get_query_params().get("sitemap"):
+if st.query_params().get("sitemap"):
   st.write(sitemap_content)
 
 #Adding button to sidebar to download the sitemap of the dashboard
