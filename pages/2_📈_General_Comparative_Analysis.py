@@ -3,22 +3,22 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 
-#setting page configuration by enitializing that this is the general comparative analysis page, setting the emoji to the "chart with the upwards trend" emoji, and making the page a wide format 
+#setting page configuration by initializing that this is the general comparative analysis page, setting the emoji to the "chart with the upwards trend" emoji, and making the page a wide format 
 st.set_page_config(page_title=" General Comparative Analysis", page_icon=":chart_with_upwards_trend:", layout='wide')
 
-#creating sidebar to select compartive analysis subpages for when a user is on the Comparative Analysis main page
+#creating sidebar to select comparative analysis subpages for when a user is on the Comparative Analysis main page
 options = st.sidebar.radio('General Comparative Analysis of Crawford County, PA', options=['General Food Insecurity Data in PA Counties', 'General Crawford County Food Insecurity Data'])
 
 #creating title for every subpage
 st.title(":chart_with_upwards_trend: General Comparative Analysis of Crawford County's Food Insecurity Data")
 
 #Importing data and creating first dataframe
-df = pd.read_csv("/Users/ryankennedy/Desktop/Interactive_Dashboard/Crawford_County_General_Food_Insecurity_Data.csv")
+df = pd.read_csv("Crawford-County-Food_Insecurity-Dashboard/Crawford_County_General_Food_Insecurity_Data.csv")
 
 #Importing data for second subpage and creating dataframe
-dataframe = pd.read_csv("/Users/ryankennedy/Desktop/Interactive_Dashboard/General_Food_Insecurity_Data_Two.csv")
+dataframe = pd.read_csv("Crawford-County-Food_Insecurity-Dashboard/Crawford_County_General_Food_Insecurity_Data_Two.csv")
 
-#defining the general function, which calls the first dataframe previously created amd contains all information that will be displayed on the first subpage
+#defining the general function, which calls the first dataframe previously created and contains all information that will be displayed on the first subpage
 def general(df):
     #adding CSS codeblock to modify elements in the text
     st.markdown('<style>div.block-container{padding-top:lrem;}</style>',unsafe_allow_html=True)
