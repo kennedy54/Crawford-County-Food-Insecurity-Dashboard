@@ -30,6 +30,8 @@ def calculate_distance(coord1, coord2):
     distance = radius_of_earth_in_miles * c
     return distance
 
+@st.cache_data
+
 #defining function that filters the user's location, the desired radius they want to query, and the location of the food resource (defined in a dataframe)
 def filter_resources(user_location, radius, resources_df):
     user_coord = (user_location.latitude, user_location.longitude)
@@ -44,6 +46,8 @@ def filter_resources(user_location, radius, resources_df):
 #accesses geographic data to define specific locations
 ssl_context = ssl.create_default_context()
 ssl_context.load_verify_locations(certifi.where())
+
+@st.cache_data
 
 #defining function that geocodes the user's address using the geographic data from ssl and geocoder/Nomatim. The point of this is to determine accurate exact coordinates/location when the user inputs their address
 def geocode_user_address(address):
@@ -85,6 +89,8 @@ options = st.sidebar.radio('Comparative Analysis of Map', options=['Map and Food
 
 #Importing Crawford County's Census Tract Data for second subpage and creating second dataframe
 dataframe = pd.read_csv("data/Name_Census_Tract_Data.csv")
+
+@st.cache_data
 
 #defining map function that calls the previously created first dataframe which combines the original first three dataframes defined. This function defines all information and food resource radius table that will be included within the first subpage
 def map(all_resources_df):
