@@ -2,8 +2,7 @@
 Official Repository for the Crawford County Food Insecurity Dashboard. This is an app deployed through Stremlit. This dashboard was created by Ryan Kennedy for his Senior Project at Allegheny College.
 
 
-# Link to Dashboard- 
-[Crawford County Food Insecurity Dashbord](https://crawford-county-food-insecurity-dashboard.streamlit.app/)
+# Link to Dashboard- [Crawford County Food Insecurity Dashbord](https://crawford-county-food-insecurity-dashboard.streamlit.app/)
 
 
 ## Introduction and Motivation-
