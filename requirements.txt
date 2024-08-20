@@ -55,6 +55,7 @@ nbclient
 nbconvert
 nbformat
 numpy
+os
 packaging
 pandas
 pandocfilters
