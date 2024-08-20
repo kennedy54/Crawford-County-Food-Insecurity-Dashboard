@@ -17,7 +17,7 @@ from math import radians, sin, cos, sqrt, atan2
 
 st.cache(allow_output_mutation=True)
 
-#function that calculates the distances of coordinates one (user's location) amd coordinates two (food resources location) using latituade and longitiude values
+#function that calculates the distances of coordinates one (user's location) and coordinates two (food resources location) using latitude and longitude values
 def calculate_distance(coord1, coord2):
     lat1, lon1 = radians(coord1[0]), radians(coord1[1])
     lat2, lon2 = radians(coord2[0]), radians(coord2[1])
@@ -25,12 +25,12 @@ def calculate_distance(coord1, coord2):
     dlat = lat2 - lat1
     a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
-    #Next tow lines definines radius of earth in miles
+    #Next two lines define radius of earth in miles
     radius_of_earth_in_miles = 3958.8
     distance = radius_of_earth_in_miles * c
     return distance
 
-#defining function that filters the user's location, their desired radius they want to query, and the location of the food resource (defined in a dataframe)
+#defining function that filters the user's location, the desired radius they want to query, and the location of the food resource (defined in a dataframe)
 def filter_resources(user_location, radius, resources_df):
     user_coord = (user_location.latitude, user_location.longitude)
     filtered_resources = []
@@ -56,11 +56,11 @@ def geocode_user_address(address):
         return None
 
 #importing 3 different datasets and defining three different dataframes of all types of food resources
-food_resources1_df = pd.read_csv('/Users/ryankennedy/Desktop/Food_Insecurity_Data/Food_Insecurity_Data_CSV_Files/Radius_Formula_CSV_Files/Crawford_County_Food_Resource_Locations_Radius.csv')
-food_resources2_df = pd.read_csv('/Users/ryankennedy/Desktop/Food_Insecurity_Data/Food_Insecurity_Data_CSV_Files/Radius_Formula_CSV_Files/Supermarkets_and_Grocery_Stores_Located_within_Crawford_County_PA_Radius.csv')
-food_resources3_df = pd.read_csv('/Users/ryankennedy/Desktop/Food_Insecurity_Data/Food_Insecurity_Data_CSV_Files/Radius_Formula_CSV_Files/Fast_Food_Establishments_Radius.csv')
+food_resources1_df = pd.read_csv('data/Crawford_County_Food_Resource_Locations_Radius.csv')
+food_resources2_df = pd.read_csv('data/Supermarkets_and_Grocery_Stores_Located_within_Crawford_County_PA_Radius.csv')
+food_resources3_df = pd.read_csv('data/Fast_Food_Establishments_Radius.csv')
 
-#variables that combines the previously defined dataframes into one dataframe
+#variables that combine the previously defined dataframes into one dataframe
 all_resources_df = pd.concat([food_resources1_df, food_resources2_df, food_resources3_df])
 
 
@@ -77,16 +77,16 @@ all_resources_df = pd.concat([food_resources1_df, food_resources2_df, food_resou
 #    accessibility_score = accessible_resources / total_resources
 #    return accessibility_score
 
-#setting page configuration by enitializing that this is the map's comparative analysis page, setting the emoji to the "map" emoji, and making the page a wide format 
+#setting page configuration by initializing that this is the map's comparative analysis page, setting the emoji to the "map" emoji, and making the page a wide format 
 st.set_page_config(page_title="Interactive Map", page_icon=":world_map:", layout='wide')
 
 #creating sidebar to select compartive analysis subpages for when a user is on the Interactive Map's main page
 options = st.sidebar.radio('Comparative Analysis of Map', options=['Map and Food Resource Radius', 'Map and Census Tract Data'])
 
 #Importing Crawford County's Census Tract Data for second subpage and creating second dataframe
-dataframe = pd.read_csv("/Users/ryankennedy/Desktop/Interactive_Dashboard/Name_Census_Tract_Data.csv")
+dataframe = pd.read_csv("data/Name_Census_Tract_Data.csv")
 
-#defining map function that calls the previously created first dataframe which combines the originalfirst three dataframes defined. This function defines all information and food resource radius table that will be included within the first subpage
+#defining map function that calls the previously created first dataframe which combines the original first three dataframes defined. This function defines all information and food resource radius table that will be included within the first subpage
 def map(all_resources_df):
     st.header('Crawford County Food Insecurity Map :world_map:')
     #markdown text that describes the data and what will be included on the map
@@ -99,7 +99,7 @@ def map(all_resources_df):
     st.markdown('- Clicking on each census track (shaded or unshaded) to display data') 
     st.markdown('- Toggling between which layers of the map you want to be displayed using the legend')
     st.markdown('- Searching for a location in the search bar tool')
-    st.markdown('- Creating a mask to select data within a certain region using the mask tool. This will allow the user to only look at data within a specfic region of the map. Select the mode of the mask tool you want to use: polygon, rectangle, circle, and lasso.')
+    st.markdown('- Creating a mask to select data within a certain region using the mask tool. This will allow the user to only look at data within a specific region of the map. Select the mode of the mask tool you want to use: polygon, rectangle, circle, and lasso.')
     st.markdown(' - - For the polygon mode, click on the map multiple times to create points and connect them together to create any shape.') 
     st.markdown(' - - For the rectangle and circle mode, click and move your cursor to how big you want the rectangle or circle to be, then click again to lock those shapes.') 
     st.markdown(' - - For the lasso mode, click, hold, and drag your cursor however you want and this will create multiple points. Connect these points to create a loose-shaped mask.')
@@ -119,12 +119,12 @@ def map(all_resources_df):
     #markdown text that tells the user exactly how to input their address in order for the code to work
     st.markdown('Address must be formatted as: <u>123 Main Street Anytown, PA 12345</u>', unsafe_allow_html=True)
 
-    #creating a text input box for users to input thier address
+    #creating a text input box for users to input their address
     user_address = st.text_input('Enter your address:')
     #creating a slider that allows the user to select the radius to find the nearest food resources
     radius_mi= st.slider('Select radius (mi)', min_value=1, max_value=20, step=1)
 
-    #if statement that creates a button that enitializes the process of finding all the food resources within the specified radius by the user, and the user's inputted address. This if statement then will visually display the outputted results
+    #if statement that creates a button that initializes the process of finding all the food resources within the specified radius by the user, and the user's inputted address. This if statement will then visually display the outputted results
     if st.button('Find Food Resources'):
         user_location = geocode_user_address(user_address)
         if user_location:
@@ -139,7 +139,7 @@ def map(all_resources_df):
             st.error('Invalid address. Please enter a valid address.')
 
 
-#defining function that will descripe all information included in the second subpage of the Interactive map page. This function will also refer to the second dataframe defined previously
+#defining function that will describe all information included in the second subpage of the Interactive map page. This function will also refer to the second dataframe defined previously
 def census(dataframe):
     #Providing header for the second subpage
     st.header('Comparing Food Insecurity Data of Crawford County\'s Census Tracts :world_map:')
@@ -176,10 +176,10 @@ def census(dataframe):
     tracts = st.multiselect('Choose Census Tract Name to Compare with each other', tract_options, ['Census_Tract_One'])
 
 
-    #Defining a select all variable that crets a checkbox for the user to select all census tract names
+    #Defining a select all variable that creates a checkbox for the user to select all census tract names
     select_all_checkbox_two = st.checkbox("Select All")
 
-    #if statement that will update the multiselect box based on if the user clicks on the "Select All" checbox
+    #if statement that will update the multiselect box based on if the user clicks on the "Select All" checkbox
     if select_all_checkbox_two:
         tracts = tract_options
 
@@ -202,7 +202,7 @@ def census(dataframe):
     )
     #Displaying the bar chart on the dashboard
     st.write(fig_two)
-#if statement that serves as the 'main' function where the previously defined 'map' and 'census' functions are called. Each one uses their own dataframes as paramters.
+#if statement that serves as the 'main' function where the previously defined 'map' and 'census' functions are called. Each one uses its own dataframes as parameters.
 if options == 'Map and Food Resource Radius':
     map(all_resources_df)
 elif options == 'Map and Census Tract Data':
