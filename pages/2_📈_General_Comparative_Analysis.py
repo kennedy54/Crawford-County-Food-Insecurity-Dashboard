@@ -13,10 +13,10 @@ options = st.sidebar.radio('General Comparative Analysis of Crawford County, PA'
 st.title(":chart_with_upwards_trend: General Comparative Analysis of Crawford County's Food Insecurity Data")
 
 #Importing data and creating first dataframe
-df = pd.read_csv("Crawford_County_General_Food_Insecurity_Data.csv")
+df = pd.read_csv("data/Crawford_County_General_Food_Insecurity_Data.csv")
 
 #Importing data for second subpage and creating dataframe
-dataframe = pd.read_csv("General_Food_Insecurity_Data_Two.csv")
+dataframe = pd.read_csv("data/General_Food_Insecurity_Data_Two.csv")
 
 #defining the general function, which calls the first dataframe previously created and contains all information that will be displayed on the first subpage
 def general(df):
