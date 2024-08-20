@@ -1,8 +1,10 @@
 # Crawford-County-Food-Insecurity-Dashboard
 Official Repository for the Crawford County Food Insecurity Dashboard. This is an app deployed through Stremlit. This dashboard was created by Ryan Kennedy for his Senior Project at Allegheny College.
 
+
 # Link to Dashboard- 
 [Crawford County Food Insecurity Dashbord](https://crawford-county-food-insecurity-dashboard.streamlit.app/)
+
 
 ## Introduction and Motivation-
 **Summary of Project:** I have created an interactive dashboard (using Streamlit.io) that uses collected health data, specifically relating to food insecurity in Crawford County, PA, to produce interactive plots, graphs, and charts (using Plotly.express). I have also created an interactive map (using CARTO) that will reside on its own page on the dashboard. I intend for this dashboard to reside on the internet on its own app to be the most accessible to the public, especially for policymakers and food-insecure individuals to access it. The goal of the dashboard is to understand the variables affecting food insecurity, which parts of the county are being affected the most, who is being affected, where resources are located, how have food insecurity trends changed over time, possible methods that could resolve what leads to food insecurity, and to finally educate policymakers and food insecure individuals.
