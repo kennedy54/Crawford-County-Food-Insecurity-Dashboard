@@ -8,8 +8,11 @@ st.set_page_config(page_title="Home", page_icon=":house:", layout='wide')
 #HTML verification file if the "verification" query parameter is present
 verification_file_path = 'googlebafe0a76f48bf64c.html'
 
+#Defining query params variable
+query_params = st.query_params
+
 #Checking for the verification of the query parameter
-if st.experimental_get_query_params().get("verification"):
+if "verification" in query_params:
     if os.path.exists(verification_file_path):
         with open(verification_file_path, 'r') as file:
             st.write(file.read(), unsafe_allow_html=True)
@@ -50,7 +53,7 @@ else:
     '''
 
     #if statement that serves the sitemap when the "sitemap" query parameter is present
-    if st.query_params.get("sitemap"):
+    if "sitemap" in query_params:
         st.write(sitemap_content)
 
     #Adding option to download the sitemap of the dashboard
