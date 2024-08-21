@@ -2,7 +2,7 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-import streamlit.v1 as components
+import streamlit.components.v1 as components
 
 #setting page configuration by initializing that this is the general comparative analysis page, setting the emoji to the "chart with the upwards trend" emoji, and making the page a wide format 
 st.set_page_config(page_title=" General Comparative Analysis", page_icon=":chart_with_upwards_trend:", layout='wide')
