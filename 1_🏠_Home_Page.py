@@ -5,6 +5,16 @@ import os
 #setting page configuration by initializing that this is the home page, setting the emoji to the "house" emoji, and making the page a wide format
 st.set_page_config(page_title="Home", page_icon=":house:", layout='wide')
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EJ8WRG15YL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EJ8WRG15YL');
+</script>
+
 #HTML verification file if the "verification" query parameter is present
 verification_file_path = 'googlebafe0a76f48bf64c.html'
 
