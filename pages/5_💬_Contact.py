@@ -1,8 +1,24 @@
 #Importing Libraries
 import streamlit as st
+import streamlit.components.v1 as components
 
 #setting page configuration by enitializing that this is the contact page, setting the emoji to the "chat bubble" emoji, and making the page a wide format 
 st.set_page_config(page_title="Contact", page_icon=":speech_balloon:", layout='wide')
+
+#Inserting Google Analytics tracking ID
+GA_TRACKING_CODE = """
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EJ8WRG15YL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EJ8WRG15YL');
+</script>
+"""
+
+st.markdown(f'<head>{GA_TRACKING_CODE}</head>', unsafe_allow_html=True)
 
 #Creating header for the contact page
 st.header(":mailbox: Report an Issue, Give Suggestions, or Get In Touch With Me!")
