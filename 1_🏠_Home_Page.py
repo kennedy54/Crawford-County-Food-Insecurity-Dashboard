@@ -21,21 +21,21 @@ st.set_page_config(page_title="Home", page_icon=":house:", layout='wide')
 #Injecting Google Analytics Google tag HTML code into header of the page
 #st.markdown(f'<head>{google_analytics_script}</head>', unsafe_allow_html=True)
 
-#HTML verification file if the "verification" query parameter is present
-verification_file_path = 'googlebafe0a76f48bf64c.html'
-
 #Inserting Meta Tag to verified on Google
 meta_tag = '<meta name="google-site-verification" content="V1_5EMiai8CgyLAwlhM8xCp-Onwe9oVseHi1hZ0RJBE" />'
 
 #Injecting the Meta tag into the header of the page
 st.markdown(f'<head>{meta_tag}</head>', unsafe_allow_html=True)
 
+#HTML verification file if the "verification" query parameter is present
+verification_file_path = 'googlebafe0a76f48bf64c.html'
+
 #Defining query params variable
-query_params = st.query_params
+query_params = st.experimental_get_query_params()
 
 #Checking for the verification of the query parameter
 # Serve the HTML verification file
-if st.experimental_get_query_params().get("verification") == ['true']:
+if query_params.get("verification") == ['true']:
     if os.path.exists(verification_file_path):
         with open(verification_file_path, 'r') as file:
             st.write(file.read(), unsafe_allow_html=True)
