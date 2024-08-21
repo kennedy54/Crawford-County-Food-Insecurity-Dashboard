@@ -15,6 +15,25 @@ from math import radians, sin, cos, sqrt, atan2
 #import cartoframes
 #import requests
 
+#importing 3 different datasets and defining three different dataframes of all types of food resources
+@st.cache_data
+def load_data():
+    food_resources1_df = pd.read_csv('data/Crawford_County_Food_Resource_Locations_Radius.csv')
+    food_resources2_df = pd.read_csv('data/Supermarkets_and_Grocery_Stores_Located_within_Crawford_County_PA_Radius.csv')
+    food_resources3_df = pd.read_csv('data/Fast_Food_Establishments_Radius.csv')
+    all_resources_df = pd.concat([food_resources1_df, food_resources2_df, food_resources3_df])
+    census_df = pd.read_csv("data/Name_Census_Tract_Data.csv")
+    return all_resources_df, census_df
+
+#defining function that geocodes the user's address using the geographic data from ssl and geocoder/Nomatim. The point of this is to determine accurate exact coordinates/location when the user inputs their address
+@st.cache_data
+def geocode_user_address(address):
+    geopy.geocoders.options.default_ssl_context = ssl.create_default_context()
+    geopy.geocoders.options.default_ssl_context.load_verify_locations(certifi.where())
+    geolocator = Nominatim(user_agent="food_resource_locator", scheme='https')
+    location = geolocator.geocode(address)
+    return location
+
 #function that calculates the distances of coordinates one (user's location) and coordinates two (food resources location) using latitude and longitude values
 def calculate_distance(coord1, coord2):
     lat1, lon1 = radians(coord1[0]), radians(coord1[1])
@@ -23,7 +42,7 @@ def calculate_distance(coord1, coord2):
     dlat = lat2 - lat1
     a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
-    #Next two lines define radius of earth in miles
+    # Next two lines define radius of earth in miles
     radius_of_earth_in_miles = 3958.8
     distance = radius_of_earth_in_miles * c
     return distance
@@ -43,30 +62,16 @@ def filter_resources(user_location, radius, resources_df):
 ssl_context = ssl.create_default_context()
 ssl_context.load_verify_locations(certifi.where())
 
-#defining function that geocodes the user's address using the geographic data from ssl and geocoder/Nomatim. The point of this is to determine accurate exact coordinates/location when the user inputs their address
-def geocode_user_address(address):
-    geopy.geocoders.options.default_ssl_context = ssl_context
-    geolocator = Nominatim(user_agent="food_resource_locator", scheme='https') #verify=False #ssl_context=context #cafile=cafile
-    location = geolocator.geocode(address)
-    if location:
-        return location
-    else:
-        return None
+#setting page configuration by initializing that this is the map's comparative analysis page, setting the emoji to the "map" emoji, and making the page a wide format 
+st.set_page_config(page_title="Interactive Map", page_icon=":world_map:", layout='wide')
 
-#importing 3 different datasets and defining three different dataframes of all types of food resources
-food_resources1_df = pd.read_csv('data/Crawford_County_Food_Resource_Locations_Radius.csv')
-food_resources2_df = pd.read_csv('data/Supermarkets_and_Grocery_Stores_Located_within_Crawford_County_PA_Radius.csv')
-food_resources3_df = pd.read_csv('data/Fast_Food_Establishments_Radius.csv')
+#creating sidebar to select compartive analysis subpages for when a user is on the Interactive Map's main page
+options = st.sidebar.radio('Comparative Analysis of Map', options=['Map and Food Resource Radius', 'Map and Census Tract Data'])
 
 #variables that combine the previously defined dataframes into one dataframe
-all_resources_df = pd.concat([food_resources1_df, food_resources2_df, food_resources3_df])
-
-
-#df = pd.read_csv("/Users/ryankennedy/Desktop/Food_Insecurity_Data/Food_Insecurity_Data_CSV_Files/Crawford_County_Food_Resource_Locations.csv")
+all_resources_df, census_df = load_data()
 
 #set_default_credentials('kennedy54', 'eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfeTUxeGM2dTYiLCJqdGkiOiJmNWQ2NGQ3NiJ9.Z4srcJKBoYBEcjbfZ5DGDp80KlthBi6ONC-Tx2Zt3qg')
-
-#eyJhbGciOiJIUzI1NiJ9.eyJhIjoiYWNfeTUxeGM2dTYiLCJqdGkiOiJmNWQ2NGQ3NiJ9.Z4srcJKBoYBEcjbfZ5DGDp80KlthBi6ONC-Tx2Zt3qg
 
 #def calculate_accessibility_score(user_location, food_resources, max_distance=20.0):
 #    distances = [geopy.distance.geodesic(user_location, resource).km for resource in food_resources]
@@ -74,12 +79,6 @@ all_resources_df = pd.concat([food_resources1_df, food_resources2_df, food_resou
 #    total_resources = len(food_resources)
 #    accessibility_score = accessible_resources / total_resources
 #    return accessibility_score
-
-#setting page configuration by initializing that this is the map's comparative analysis page, setting the emoji to the "map" emoji, and making the page a wide format 
-st.set_page_config(page_title="Interactive Map", page_icon=":world_map:", layout='wide')
-
-#creating sidebar to select compartive analysis subpages for when a user is on the Interactive Map's main page
-options = st.sidebar.radio('Comparative Analysis of Map', options=['Map and Food Resource Radius', 'Map and Census Tract Data'])
 
 #Importing Crawford County's Census Tract Data for second subpage and creating second dataframe
 dataframe = pd.read_csv("data/Name_Census_Tract_Data.csv")
@@ -160,7 +159,7 @@ def census(dataframe):
     st.markdown('## Crawford County\'s Census Tracts\' Food Insecurity Data')
     #Displaying the data table of the food insecurity data within Crawford County's Census Tracts originally collected by the USDA, and later manipulated by me
     st.write(dataframe)
-    #using an html codeblock to overall fix the markdown text to display who originally made teh data
+    #using an html codeblock to overall fix the markdown text to display who originally made the data
     st.markdown('<span style="font-size: small;">This data was compiled by the [USDA](https://www.ers.usda.gov/data-products/food-access-research-atlas/go-to-the-atlas/).</span>', unsafe_allow_html=True)
     #markdown text that tells the user disclaimers about how to use the interactive graph 
     st.markdown('#### Select a variable using the box below that (this is found in the table above) to plot on the y-axis, and any census tract name to plot on the x-axis.')
@@ -204,4 +203,4 @@ def census(dataframe):
 if options == 'Map and Food Resource Radius':
     map(all_resources_df)
 elif options == 'Map and Census Tract Data':
-    census(dataframe)
+    census(census_df)
