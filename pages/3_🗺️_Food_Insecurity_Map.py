@@ -10,6 +10,7 @@ import geopy.geocoders
 from geopy.geocoders import Nominatim
 import certifi
 from math import radians, sin, cos, sqrt, atan2
+import streamlit.components.v1 as components
 #from geopy.geocoders import options
 #import mapbox
 #import cartoframes
@@ -64,6 +65,21 @@ ssl_context.load_verify_locations(certifi.where())
 
 #setting page configuration by initializing that this is the map's comparative analysis page, setting the emoji to the "map" emoji, and making the page a wide format 
 st.set_page_config(page_title="Interactive Map", page_icon=":world_map:", layout='wide')
+
+#Inserting Google Analytics tracking ID
+GA_TRACKING_CODE = """
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EJ8WRG15YL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EJ8WRG15YL');
+</script>
+"""
+
+st.markdown(f'<head>{GA_TRACKING_CODE}</head>', unsafe_allow_html=True)
 
 #creating sidebar to select compartive analysis subpages for when a user is on the Interactive Map's main page
 options = st.sidebar.radio('Comparative Analysis of Map', options=['Map and Food Resource Radius', 'Map and Census Tract Data'])
