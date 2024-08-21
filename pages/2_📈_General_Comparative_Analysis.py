@@ -2,9 +2,25 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+import streamlit.v1 as components
 
 #setting page configuration by initializing that this is the general comparative analysis page, setting the emoji to the "chart with the upwards trend" emoji, and making the page a wide format 
 st.set_page_config(page_title=" General Comparative Analysis", page_icon=":chart_with_upwards_trend:", layout='wide')
+
+#Inserting Google Analytics tracking ID
+GA_TRACKING_CODE = """
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EJ8WRG15YL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EJ8WRG15YL');
+</script>
+"""
+
+st.markdown(f'<head>{GA_TRACKING_CODE}</head>', unsafe_allow_html=True)
 
 #creating sidebar to select comparative analysis subpages for when a user is on the Comparative Analysis main page
 options = st.sidebar.radio('General Comparative Analysis of Crawford County, PA', options=['General Food Insecurity Data in PA Counties', 'General Crawford County Food Insecurity Data'])
