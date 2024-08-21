@@ -15,8 +15,6 @@ from math import radians, sin, cos, sqrt, atan2
 #import cartoframes
 #import requests
 
-@st.cache_data
-
 #function that calculates the distances of coordinates one (user's location) and coordinates two (food resources location) using latitude and longitude values
 def calculate_distance(coord1, coord2):
     lat1, lon1 = radians(coord1[0]), radians(coord1[1])
