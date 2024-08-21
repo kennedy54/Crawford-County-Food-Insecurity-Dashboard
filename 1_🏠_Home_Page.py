@@ -18,7 +18,8 @@ st.markdown(f'<head>{meta_tag}</head>', unsafe_allow_html=True)
 query_params = st.query_params
 
 #Checking for the verification of the query parameter
-if "verification" in query_params:
+# Serve the HTML verification file
+if st.experimental_get_query_params().get("verification") == ['true']:
     if os.path.exists(verification_file_path):
         with open(verification_file_path, 'r') as file:
             st.write(file.read(), unsafe_allow_html=True)
