@@ -84,8 +84,6 @@ options = st.sidebar.radio('Comparative Analysis of Map', options=['Map and Food
 #Importing Crawford County's Census Tract Data for second subpage and creating second dataframe
 dataframe = pd.read_csv("data/Name_Census_Tract_Data.csv")
 
-@st.cache_data
-
 #defining map function that calls the previously created first dataframe which combines the original first three dataframes defined. This function defines all information and food resource radius table that will be included within the first subpage
 def map(all_resources_df):
     st.header('Crawford County Food Insecurity Map :world_map:')
