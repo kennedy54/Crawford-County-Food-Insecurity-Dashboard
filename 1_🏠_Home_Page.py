@@ -1,9 +1,25 @@
 # Importing Libraries
 import streamlit as st
 import os
+import streamlit.components.v1 as components
 
 #setting page configuration by initializing that this is the home page, setting the emoji to the "house" emoji, and making the page a wide format
 st.set_page_config(page_title="Home", page_icon=":house:", layout='wide')
+
+
+GA_TRACKING_CODE = """
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EJ8WRG15YL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EJ8WRG15YL');
+</script>
+"""
+
+st.markdown(f'<head>{GA_TRACKING_CODE}</head>', unsafe_allow_html=True)
 
 #Inserting Google tag configurator
 #google_analytics_script = """
