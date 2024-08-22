@@ -93,7 +93,7 @@ else:
 
     #if statement that serves the sitemap when the "sitemap" query parameter is present
     #if "sitemap" in query_params:
-        st.write(sitemap_content)
+    #    st.write(sitemap_content)
 
     #Adding option to download the sitemap of the dashboard
     # st.markdown("## Download Sitemap")
