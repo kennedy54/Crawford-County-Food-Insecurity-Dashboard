@@ -80,21 +80,21 @@ else:
     st.sidebar.success("Page Navigation")
 
     #Creating sitemap for the dashboard
-    sitemap_content = '''<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        <url>
-            <loc>https://crawford-county-food-insecurity-dashboard.streamlit.app/</loc>
-            <lastmod>2024-08-20</lastmod>
-            <changefreq>weekly</changefreq>
-            <priority>1.0</priority>
-        </url>
-    </urlset>
-    '''
+    #sitemap_content = '''<?xml version="1.0" encoding="UTF-8"?>
+    #<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    #    <url>
+    #        <loc>https://crawford-county-food-insecurity-dashboard.streamlit.app/</loc>
+    #        <lastmod>2024-08-20</lastmod>
+    #        <changefreq>weekly</changefreq>
+    #        <priority>1.0</priority>
+    #    </url>
+    #</urlset>
+    #'''
 
     #if statement that serves the sitemap when the "sitemap" query parameter is present
-    if "sitemap" in query_params:
+    #if "sitemap" in query_params:
         st.write(sitemap_content)
 
     #Adding option to download the sitemap of the dashboard
-    st.markdown("## Download Sitemap")
-    st.download_button(label="Download sitemap.xml", data=sitemap_content, file_name="sitemap.xml", mime='text/xml')
+    # st.markdown("## Download Sitemap")
+    # st.download_button(label="Download sitemap.xml", data=sitemap_content, file_name="sitemap.xml", mime='text/xml')
