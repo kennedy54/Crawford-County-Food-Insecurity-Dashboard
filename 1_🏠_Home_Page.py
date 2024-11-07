@@ -47,7 +47,7 @@ st.markdown(f'<head>{meta_tag}</head>', unsafe_allow_html=True)
 verification_file_path = 'googlebafe0a76f48bf64c.html'
 
 #Defining query params variable
-query_paramets = st.experimental_get_query_paramets()
+query_paramets = st.experimental_get_query_params()
 
 #Checking for the verification of the query parameter
 # Serve the HTML verification file
