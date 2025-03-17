@@ -95,7 +95,7 @@ soupsieve
 stack-data
 statsmodels
 stdlib-list
-streamlit
+streamlit>=1.20
 tenacity
 tinycss2
 toml
